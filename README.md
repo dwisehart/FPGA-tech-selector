@@ -7,7 +7,7 @@ the free LTSpice tool from Analog Devices.  Start that program and open SEL-STIM
 'run' icon in the upper left of the window.  Enjoy!
 
 
-<img title="" src="Snapshot-1.png">
+<img title="" src="Screenshot-1.png">
 
 FPGA tech: Building a selector
 
@@ -19,7 +19,7 @@ For an 8-input selector, you need three bits of address, which are ports SEL0, S
 
 The first circuit takes care of one input, which has the address 111. There is another one of these circuits that is very similar for each address. The circuits vary by which SEL input ports have inverters, which sets the address of the circuit. For address 111, all three SEL ports have inverters, which is the first CMOS pair on each port. For the second circuit, which has no inverters, the address is 000. Every other circuit has its address set by the combination of inverters on the SEL inputs.
 
-<img title="" src="Snapshot-1.png">
+<img title="Selector for address 000" src="Screenshot-2.png">
 
 One of the nice things about LTSpice is that it allows us to take a schematic like this and package it into a sub-circuit, and then pull multiple sub-circuits together into the larger circuit as you see below.
 
@@ -31,7 +31,7 @@ The last subcircuit in the larger circuit takes the output of whichever selector
 
 In total, we invert the input twice in this larger circuit, canceling out the inversion. We make these inversions because it takes fewer transistors to complete the design than if we did not invert the input: another topic for a discussion of basic CMOS logic.
 
-<img title="" src="Snapshot-1.png">
+<img title="8-input selector plus test circuitry" src="Screenshot-3.png">
 
 Now with the various sub-circuits created and instantiated, we are ready to simulate. Push the little running man icon at the upper left of the window, and less than 10 seconds later--for this very simple circuit--the simulation is complete. I then go back and use the GUI to add simulation probes to the points in the circuitry I am interested in seeing. When I do, their waveforms appear in the simulation output window.
 
@@ -39,7 +39,7 @@ After verifying that the output was what I expected, I probed each of the output
 
 If the implementation was broken, on the OUT port I would either see an idle 1 output, an idle 0 output or a mixture of different inputs fighting over the OUT port at the same time, causing intermediate voltages and non-square wave waveforms. Instead, what we see correctly is each of the input frequencies driving the output in rotating fashion as each address of the selector it chosen.
 
-<img title="" src="Snapshot-1.png">
+<img title="Simulation of one input selected at a time, in rotation." src="Screenshot-4.png">
 
 OK, now I know it is hard to see the next great trade in an image like that, but believe me, this is great progress. In part 1 of this article we have created and simulated the functionality of a discrete IC for a 1 of 8 selector. Now that we understand what that circuit is, we can modify the schematics a bit and simulate how an FPGA might approach the same problem. That will be the subject of part 2 of this article.
 
